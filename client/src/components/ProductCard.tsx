@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import type { Product } from "../types"
 import { Plus, Star } from "lucide-react";
+import { useCart } from "../context/CartContext";
+
 
 interface Props {
     product: Product;
@@ -10,7 +12,7 @@ interface Props {
 const ProductCard = ({ product }: Props) => {
 
     const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "$";
-    const { addToCart } = { addToCart: (_data: any) => { } }
+    const { addToCart } = useCart()
     const navigate = useNavigate()
 
     return (

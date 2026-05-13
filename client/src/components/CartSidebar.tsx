@@ -16,7 +16,7 @@ const CartSidebar = () => {
       {/* Overlay */}
       <div onClick={() => setIsCartOpen(false)} className="fixed inset-0 bg-black/40 z-50 transition-opacity" />
       {/* Sidebar */}
-      <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white z-50 shadow-2xl flex-col animate-slide-in-right">
+      <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white z-50 shadow-2xl flex flex-col animate-slide-in-right">
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-app-border">
           <div className="flex items-center gap-2">
