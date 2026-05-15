@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom"
 import type { Product } from "../types";
 import { categoriesData, dummyProducts } from "../assets/assets";
-import { ChevronDown, Home, SlidersHorizontal } from "lucide-react";
+import { ChevronDown, Home, SlidersHorizontal, XIcon } from "lucide-react";
 import ProductCard from "../components/ProductCard";
 import Loading from "../components/Loading";
 import FilterPanel from "../components/FilterPanel";
@@ -64,7 +64,7 @@ const Products = () => {
           {/* Sidebar - Desktop */}
           <aside className="hidden lg:block w-64 shrink-0">
             <div className="bg-white rounded-2xl p-4 sticky top-24">
-              <FilterPanel categories={categoriesData} category={category} organic={organic} minPrice={minPrice} maxPrice={maxPrice} updateFilter={updateFilter} clearFilters={clearFilters} hasFilters={hasFilters}/>
+              <FilterPanel categories={categoriesData} category={category} organic={organic} minPrice={minPrice} maxPrice={maxPrice} updateFilter={updateFilter} clearFilters={clearFilters} hasFilters={hasFilters} />
             </div>
           </aside>
           {/* Main Content */}
@@ -122,6 +122,42 @@ const Products = () => {
           </main>
         </div>
       </div>
+      {/* Mobile Filters Modal */}
+      {mobileFiltersOpen && (
+        <>
+          <div className="fixed inset-0 bg-black/40 z-50" onClick={() => setMobileFiltersOpen(false)} />
+
+          <div className="fixed bottom-0 left-0 right-0 bg-white z-50 rounded-t-2xl max-h-[80vh] overflow-y-auto animate-slide-in-up">
+            <div className="flex items-center justify-between p-4 border-b border-app-border">
+              <h3 className="text-lg font-semibold text-app-green">Filters</h3>
+              <button
+                onClick={() => setMobileFiltersOpen(false)}
+                className="p-2 hover:bg-app-cream rounded-lg">
+                <XIcon className="size-5" />
+              </button>
+            </div>
+
+            <div className="p-4">
+              <FilterPanel
+                categories={categoriesData}
+                category={category}
+                organic={organic}
+                minPrice={minPrice}
+                maxPrice={maxPrice}
+                updateFilter={(key: string, value: string) => {
+                  updateFilter(key, value);
+                  setMobileFiltersOpen(false);
+                }}
+                clearFilters={() => {
+                  clearFilters();
+                  setMobileFiltersOpen(false);
+                }}
+                hasFilters={hasFilters}
+              />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }
